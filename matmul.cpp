@@ -1,32 +1,17 @@
 #include <immintrin.h>
 #include <iostream>
+#include <cstdlib>
+#include "helper.h"
 using namespace std;
 
 int main()
 {
-    alignas(32) float arr1[8][8] = {
-        {1, 2, 3, 4, 5, 6, 7, 8},
-        {1, 2, 3, 4, 5, 6, 7, 8},
-        {1, 2, 3, 4, 5, 6, 7, 8},
-        {1, 2, 3, 4, 5, 6, 7, 8},
-        {1, 2, 3, 4, 5, 6, 7, 8},
-        {1, 2, 3, 4, 5, 6, 7, 8},
-        {1, 2, 3, 4, 5, 6, 7, 8},
-        {1, 2, 3, 4, 5, 6, 7, 8}};
-
-    alignas(32) float arr2[8][8] = {
-        {1, 0, 0, 0, 0, 0, 0, 0},
-        {0, 1, 0, 0, 0, 0, 0, 0},
-        {0, 0, 1, 0, 0, 0, 0, 0},
-        {0, 0, 0, 1, 0, 0, 0, 0},
-        {0, 0, 0, 0, 1, 0, 0, 0},
-        {0, 0, 0, 0, 0, 1, 0, 0},
-        {0, 0, 0, 0, 0, 0, 1, 0},
-        {0, 0, 0, 0, 0, 0, 0, 1}};
-
-    alignas(32) float arr3[8][8];
-
     int N = 8;
+    alignas(32) float arr1[N][N];
+    alignas(32) float arr2[N][N];
+    alignas(32) float arr3[N][N];
+    fillMatrix(&arr1[0][0], N);
+    fillMatrix(&arr2[0][0], N);
     for (int test = 0; test < 1000; test++)
     {
         for (int i = 0; i < N; i++)
@@ -42,15 +27,7 @@ int main()
             }
         }
     }
-    cout << "Result :" << "\n";
-    for (int i = 0; i < 8; i++)
-    {
-        for (int j = 0; j < 8; j++)
-        {
-            cout << arr3[i][j] << " ";
-        }
-        cout << "\n";
-    }
+    printMatrix(&arr3[0][0], N);
 
     return 0;
 }
